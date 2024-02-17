@@ -7,7 +7,7 @@
 "use strict";
 
 // IIFE = Immediately Invoked Functional Expression
-(function (core){
+(function(){
 
     function CheckLogin(){
         if(sessionStorage.getItem("user")) {
@@ -45,7 +45,6 @@
                     console.error("ERROR: callback not a function");
                 }
             }
-
         });
         // Step 3: Send XHR Request
         XHR.send();
@@ -335,5 +334,4 @@
     }
 
     window.addEventListener("load", Start);
-
-})(core || (core ={}));
+})();
