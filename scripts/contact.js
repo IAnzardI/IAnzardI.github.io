@@ -4,38 +4,38 @@
 
     class Contact {
         constructor(fullName = "", contactNumber = "", emailAddress = "") {
-            this.fullName = fullName;
-            this.contactNumber = contactNumber;
-            this.emailAddress = emailAddress;
+            this.FullName = fullName;
+            this.ContactNumber = contactNumber;
+            this.EmailAddress = emailAddress;
         }
 
         get fullName() {
-            return this._fullName;
+            return this.FullName;
         }
 
         set fullName(value) {
-            this._fullName = value;
+            this.FullName = value;
         }
 
         get contactNumber() {
-            return this._contactNumber;
+            return this.ContactNumber;
         }
 
         set contactNumber(value) {
-            this._contactNumber = value;
+            this.ContactNumber = value;
         }
 
         get emailAddress() {
-            return this._emailAddress;
+            return this.EmailAddress;
         }
 
         set emailAddress(value) {
-            this._emailAddress = value;
+            this.EmailAddress = value;
         }
 
         toString() {
-            return `fullName ${this._fullName}\n
-            contactNumber ${this._contactNumber}\n EmailAddress ${this._emailAddress}`;
+            return `fullName ${this.FullName}\n
+            contactNumber ${this.ContactNumber}\n EmailAddress ${this.EmailAddress}`;
         }
 
 

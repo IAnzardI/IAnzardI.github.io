@@ -27,17 +27,17 @@
 
     function AjaxRequest(method, url, callback) {
         // Step 1: Instantiate new XHR object
-        let xhr = new XMLHttpRequest();
+        let XHR = new XMLHttpRequest();
 
         // Step 2: Open XHR request
-        xhr.open(method, url);
+        XHR.open(method, url);
 
         // Step 4: Add even listener for the readystatechange event
             // The readystatechange event is triggered when the state of a document being fetched changes
-        xhr.addEventListener("readystatechange", () => {
-            if(xhr.readyState === 4  && xhr.status === 200) {
+        XHR.addEventListener("readystatechange", () => {
+            if(XHR.readyState === 4  && XHR.status === 200) {
                 if(typeof callback == "function"){
-                    callback(xhr.responseText);
+                    callback(XHR.responseText);
                 }else {
                     console.error("ERROR: callback not a function");
                 }
@@ -45,7 +45,7 @@
 
         });
         // Step 3: Send XHR Request
-        xhr.send();
+        XHR.send();
 
     }
 
@@ -65,9 +65,9 @@
 
     /**
      * validate form field
-     * @param input_field_id
-     * @param regular_expression
-     * @param error_message
+     * @param {string} input_field_id
+     * @param {RegExp} regular_expression
+     * @param {string} error_message
      * @constructor
      **/
 
@@ -93,15 +93,15 @@
 
     /**
      *
-     * @param fullName
-     * @param contactNumber
-     * @param emailAddress
+     * @param FullName
+     * @param ContactNumber
+     * @param EmailAddress
      * @constructor
      */
-    function AddContact(fullName, contactNumber, emailAddress) {
-        let contact = new core.Contact(fullName, contactNumber, emailAddress);
+    function AddContact(FullName, ContactNumber, EmailAddress) {
+        let contact = new core.Contact(FullName, ContactNumber, EmailAddress);
         if(contact.serialize()){
-            let key = contact._fullName.substring(0, 1) + Date.now();
+            let key = contact.FullName.substring(0, 1) + Date.now();
             localStorage.setItem(key, contact.serialize());
         }
     }
@@ -154,7 +154,7 @@
                                 </button>                            
                             </td>
                             <td>
-                                <button value="${key}" class="btn btn-danger btn-sm edit">
+                                <button value="${key}" class="btn btn-danger btn-sm delete">
                                     <i class="fas fa-edit fa-sm"> Delete</i>
                                 </button> 
                             </td>
@@ -197,9 +197,9 @@
                 $("main>h1").text("Add Contact");
                 $("#addButton").html(`<i class="fas fa-plus-circle fa-sm" /> Add`);
 
-                $("#editButton").on("click", function () {
+                $("#editButton").on("click",  (event) => {
                     event.preventDefault();
-                    AddContact(fullName.value, contactNumber.value, emailAddress.value);
+                    new AddContact(FullName.value, ContactNumber.value, EmailAddress.value);
                     location.href = "contact-list.html";
                 });
 
@@ -208,33 +208,31 @@
                 });
 
                 break;
-            default:
+            default: {
 
                 let contact = new core.Contact();
                 contact.deserialize(localStorage.getItem(page))
 
-                $("#fullName").val(contact.fullName);
-                $("#contactNumber").val(contact.contactNumber);
-                $("#emailAddress").val(contact.emailAddress);
+                $("#fullName").val(contact.FullName);
+                $("#contactNumber").val(contact.ContactNumber);
+                $("#emailAddress").val(contact.EmailAddress);
 
 
-                $(`#editButton`).on("click", function ()  {
+                $(`#editButton`).on("click",  (event) => {
                     event.preventDefault();
-
-                    contact.fullName = $("#fullName").val();
-                    contact.contactNumber = $("#contactNumber").val();
-                    contact.emailAddress = $("#emailAddress").val();
+                    contact.FullName = $("#fullName").val();
+                    contact.ContactNumber = $("#contactNumber").val();
+                    contact.EmailAddress = $("#emailAddress").val();
 
                     localStorage.setItem(page, contact.serialize());
                     location.href = "contact-list.html";
 
                 });
 
-                $(`#cancelButton`).on("click", function () {
+                $(`#cancelButton`).on("click",  () => {
                     location.href = "contact-list.html";
                 });
-
-
+            }
                 break;
         }
     }
@@ -246,9 +244,9 @@
         let sendButton = document.getElementById("sendButton");
         let subscribeButton = document.getElementById("subscribeCheckbox");
 
-        sendButton.addEventListener("click", function(event){
+        sendButton.addEventListener("click", (event) =>{
             if(subscribeButton.checked){
-                let contact = new Contact(fullname.value, contactNumber.value, emailAddress.value);
+                let contact = new Contact(Fullname.value, ContactNumber.value, EmailAddress.value);
                 if(contact.serialize()){
                     let key = contact.FullName.substring(0,1) + Date.now();
                     localStorage.setItem(key, contact.serialize());

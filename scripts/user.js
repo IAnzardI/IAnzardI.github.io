@@ -3,6 +3,13 @@
 (function (core) {
 
      class User {
+         constructor(displayName = "", emailAddress = "", username = "", password = "") {
+             this.DisplayName = displayName;
+             this.EmailAddress = emailAddress;
+             this.Username = username;
+             this.Password = password;
+
+         }
          get password() {
              return this._password;
          }
@@ -11,59 +18,52 @@
              this._password = value;
          }
          get username() {
-             return this._username;
+             return this.Username;
          }
 
          set username(value) {
-             this._username = value;
+             this.Username = value;
          }
          get emailAddress() {
-             return this._emailAddress;
+             return this.EmailAddress;
          }
 
          set emailAddress(value) {
-             this._emailAddress = value;
+             this.EmailAddress = value;
          }
          get displayName() {
-             return this._displayName;
+             return this.DisplayName;
          }
 
          set displayName(value) {
-             this._displayName = value;
-         }
-         constructor(displayName = "", emailAddress = "", username = "", password = "") {
-             this._displayName = displayName;
-             this._emailAddress = emailAddress;
-             this.username = username;
-             this.password = password;
-
+             this.DisplayName = value;
          }
 
 
          toString(){
-             return `Display Name: ${this._displayName}\nEmail Address: ${this._emailAddress}\nUsername: ${this.username}`;
+             return `Display Name: ${this.DisplayName}\nEmail Address: ${this.EmailAddress}\nUsername: ${this.Username}`;
          }
 
          toJSON() {
              return {
-                 DisplayName : this._displayName,
-                 EmailAddress : this._emailAddress,
-                 Username : this._username,
-                 Password : this._password
+                 "DisplayName" : this.DisplayName,
+                 "EmailAddress" : this.EmailAddress,
+                 "Username" : this.Username,
+                 "Password" : this.Password
              }
          }
 
          fromJSON(data){
-         this._displayName = data.DisplayName;
-         this._emailAddress = data.EmailAddress;
-         this._username = data.Username;
-         this._password = data.password;
+             this.DisplayName = data.DisplayName;
+             this.EmailAddress = data.EmailAddress;
+             this.Username = data.Username;
+             this.Password = data.Password;
          }
 
 
          serialize(){
-            if(this._displayName !== "" && this._emailAddress !== "" && this._username !== "'"){
-                return `${this._displayName}, ${this._emailAddress}, ${this._username}`;
+            if(this.DisplayName !== "" && this.EmailAddress !== "" && this.Username !== "'"){
+                return `${this.DisplayName}, ${this.EmailAddress}, ${this.Username}`;
             }
             console.error("Failed to serialize, one or more user attributes were missing");
              return null;
@@ -71,9 +71,9 @@
 
          deserialize(data){
             let propertyArray = data.split(".");
-            this._displayName = propertyArray[0];
-            this._emailAddress = propertyArray[1];
-            this._username = propertyArray[2];
+            this.DisplayName = propertyArray[0];
+            this.EmailAddress = propertyArray[1];
+            this.Username = propertyArray[2];
          }
 
          } // end of user class
