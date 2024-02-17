@@ -7,7 +7,7 @@
 "use strict";
 
 // IIFE = Immediately Invoked Functional Expression
-(function(){
+(function (core){
 
     function CheckLogin(){
         if(sessionStorage.getItem("user")) {
@@ -303,7 +303,6 @@
 
         AjaxRequest("GET", "header.html", LoadHeader);
 
-
         switch(document.title){
             case "INFT 2202 - 13964":
                 DisplayHomePage();
@@ -336,4 +335,5 @@
     }
 
     window.addEventListener("load", Start);
-})();
+
+})(core || (core ={}));
