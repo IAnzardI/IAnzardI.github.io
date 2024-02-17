@@ -7,7 +7,7 @@
 "use strict";
 
 // IIFE = Immediately Invoked Functional Expression
-(function(){
+(function (){
 
     function CheckLogin(){
         if(sessionStorage.getItem("user")) {
