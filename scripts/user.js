@@ -11,11 +11,11 @@
 
          }
          get password() {
-             return this._password;
+             return this.Password;
          }
 
          set password(value) {
-             this._password = value;
+             this.Password = value;
          }
          get username() {
              return this.Username;

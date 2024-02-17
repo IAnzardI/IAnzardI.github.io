@@ -3,7 +3,6 @@
 // IIFE = Immediately Invoked Functional Expression
 (function(){
 
-
     function CheckLogin(){
         if(sessionStorage.getItem("user")) {
             $("#login").html(`<a id="logout" class="nav-link" href="#"><i class="fa fa-sign-out-alt"> Logout</i></a>`)
@@ -16,8 +15,6 @@
 
         });
     }
-
-
 
     function LoadHeader(html_data) {
         $("header").html(html_data);
@@ -49,18 +46,15 @@
 
     }
 
-
-
-
     function ContactFormValidation() {
         // fullName
-        ValidateField("#fullName", /^([A-Z][a-z]{1,3}\\.?\\s)?([A-Z][a-z]+)+([\\s,-]([A-z][a-z]+))*$/, "Please Enter a Valid Full Name");
+        new ValidateField("#fullName", /^([A-Z][a-z]{1,3}\\.?\\s)?([A-Z][a-z]+)+([\\s,-]([A-z][a-z]+))*$/, "Please Enter a Valid Full Name");
 
         //contactNumber
-        ValidateField("#contactNumber", /^(\+\d{1,3}[\s-.])?\(?\d{3}\)?[\s-.]?\d{3}[\s-.]\d{4}$/, "Please Enter a Valid Contact Number");
+        new ValidateField("#contactNumber", /^(\+\d{1,3}[\s-.])?\(?\d{3}\)?[\s-.]?\d{3}[\s-.]\d{4}$/, "Please Enter a Valid Contact Number");
 
         //emailAddress
-        ValidateField("#emailAddress", /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,10}$/, "Please Enter a Email Address");
+        new ValidateField("#emailAddress", /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,10}$/, "Please Enter a Email Address");
     }
 
     /**
@@ -71,35 +65,31 @@
      * @constructor
      **/
 
-
     function ValidateField(input_field_id, regular_expression, error_message) {
-
         let messageArea = $("#messageArea").hide();
-
 
         $(input_field_id).on("blur", function () {
             let inputFieldText = $(this).val();
-            if(!regular_expression.test(inputFieldText)) {
-                // full name foes not success pattern matching
+            if (!regular_expression.test(inputFieldText)) {
+                // full name does not pass pattern matching
                 $(this).trigger("focus").trigger("select");
                 messageArea.addClass("alert alert-danger").text(error_message).show();
-            }else{
+            } else {
                 // full name is successful
                 messageArea.removeAttr("class").hide();
             }
         });
     }
 
-
     /**
      *
-     * @param FullName
-     * @param ContactNumber
-     * @param EmailAddress
+     * @param {string} fullName
+     * @param {int} contactNumber
+     * @param {string} emailAddress
      * @constructor
      */
-    function AddContact(FullName, ContactNumber, EmailAddress) {
-        let contact = new core.Contact(FullName, ContactNumber, EmailAddress);
+    function AddContact(fullName, contactNumber, emailAddress) {
+        let contact = new core.Contact(fullName, contactNumber, emailAddress);
         if(contact.serialize()){
             let key = contact.FullName.substring(0, 1) + Date.now();
             localStorage.setItem(key, contact.serialize());
@@ -140,14 +130,14 @@
 
             let index = 1;
             for(const key of keys) {
-                let contactData = new core.Contact();
-                let contact = localStorage.getItem(key);
+                let contact = new core.Contact();
+                let contactData = localStorage.getItem(key);
 
                 contact.deserialize(contactData);
                 data += `<tr><th scope="row" class="text-center">${index}</th>
-                            <td>${contact.FullName}</td>
-                            <td>${contact.ContactNumber}</td>
-                            <td>${contact.EmailAddress}</td>
+                            <td>${contact.fullName}</td>
+                            <td>${contact.contactNumber}</td>
+                            <td>${contact.emailAddress}</td>
                             <td class="text-center">
                                 <button value="${key}" class="btn btn-primary btn-sm edit">
                                     <i class="fas fa-edit fa-sm"> Edit</i>
@@ -197,9 +187,8 @@
                 $("main>h1").text("Add Contact");
                 $("#addButton").html(`<i class="fas fa-plus-circle fa-sm" /> Add`);
 
-                $("#editButton").on("click",  (event) => {
-                    event.preventDefault();
-                    new AddContact(FullName.value, ContactNumber.value, EmailAddress.value);
+                $("#editButton").on("click",  function () {
+                    new AddContact(fullName.value, contactNumber.value, emailAddress.value);
                     location.href = "contact-list.html";
                 });
 
@@ -218,7 +207,7 @@
                 $("#emailAddress").val(contact.EmailAddress);
 
 
-                $(`#editButton`).on("click",  (event) => {
+                $(`#editButton`).on("click",  function () {
                     event.preventDefault();
                     contact.FullName = $("#fullName").val();
                     contact.ContactNumber = $("#contactNumber").val();
@@ -229,7 +218,7 @@
 
                 });
 
-                $(`#cancelButton`).on("click",  () => {
+                $(`#cancelButton`).on("click",  function () {
                     location.href = "contact-list.html";
                 });
             }
@@ -244,11 +233,11 @@
         let sendButton = document.getElementById("sendButton");
         let subscribeButton = document.getElementById("subscribeCheckbox");
 
-        sendButton.addEventListener("click", (event) =>{
+        sendButton.addEventListener("click", function (){
             if(subscribeButton.checked){
-                let contact = new Contact(Fullname.value, ContactNumber.value, EmailAddress.value);
+                let contact = new Contact(fullname.value, contactNumber.value, emailAddress.value);
                 if(contact.serialize()){
-                    let key = contact.FullName.substring(0,1) + Date.now();
+                    let key = contact.fullName.substring(0,1) + Date.now();
                     localStorage.setItem(key, contact.serialize());
                 }
             }

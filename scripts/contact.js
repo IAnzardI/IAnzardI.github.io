@@ -34,8 +34,8 @@
         }
 
         toString() {
-            return `fullName ${this.FullName}\n
-            contactNumber ${this.ContactNumber}\n EmailAddress ${this.EmailAddress}`;
+            return `fullName ${this.fullName}\n,
+            contactNumber ${this.contactNumber}\n, EmailAddress ${this.emailAddress}`;
         }
 
 
@@ -44,7 +44,7 @@
          **/
         serialize() {
             if (this.FullName !== "" && this.ContactNumber !== "" && this.EmailAddress !== "") {
-                return `${this.FullName}, ${this.ContactNumber}, ${this.EmailAddress}`;
+                return `${this.fullName}, ${this.contactNumber}, ${this.emailAddress}`;
             }
             console.error("One or more of the contact properties are missing or invalid");
             return null;
@@ -54,8 +54,7 @@
          Deserialized means to read data from localStorage
          **/
         deserialize(data) {
-            // Bruce Wayne, 555-5555, Bruce@Batman.com
-            let propertyArray = data.split(".");
+            let propertyArray = data.split(" , ");
             this.FullName = propertyArray[0];
             this.ContactNumber = propertyArray[1];
             this.EmailAddress = propertyArray[2];

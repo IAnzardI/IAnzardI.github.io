@@ -1,3 +1,9 @@
+#mainContent {
+    text-align: center;
+    align-items: center;
+}
+
+
 .input-group-addon:first-child
 {
     border-right: 0;
@@ -10,8 +16,8 @@
     font-weight: 400;
     line-height: 1;
     text-align: center;
-    border: 1px solid darkgrey;
-    border-radius: 4xpx;
+    border: 2px solid darkgrey;
+    border-radius: 4px;
 }
 
 .input-group-addon .fa
@@ -39,8 +45,8 @@
 {
     padding: 2rem 1rem;
     margin-bottom: 2rem;
-    background-color: lightgrey;
-    border-radius: .3rem;
+    background-color: mediumpurple;
+    border-radius: .4rem;
 }
 
 .login input
@@ -49,4 +55,8 @@
     border-color: darkgrey;
     border-radius: .4em;
     width: 100%;
+}
+
+.input-group-addon {
+    background-color: orange;
 }
